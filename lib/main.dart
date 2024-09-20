@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:template/screens/home.dart';
+import 'package:template/components/task.dart';
+import 'package:template/states/list_handler.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ListHandler(),
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'TODO APP',
+      title: 'To Do-App',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(221, 0, 110, 255)),
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(221, 0, 110, 255)),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'APP'),
+      home: MyHomePage(),
     );
   }
 }
-
