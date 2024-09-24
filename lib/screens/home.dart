@@ -1,76 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:template/screens/create_task.dart';
-
+import 'package:template/states/list_handler.dart';
 import '../components/task_tile.dart';
 
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-  static List<String> list1 = <String>['ALL', 'DONE', 'UNDONE'];
-
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  
+class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 155, 155, 155),
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: const Color.fromARGB(137, 80, 78, 78), 
-        title: Text('TODO APP'),
+        backgroundColor: const Color.fromARGB(137, 80, 78, 78),
+        title: Text('To Do-App'),
         actions: <Widget>[
-
-          // add function to the button 
-          GestureDetector(child: Icon(Icons.more_vert),
-          onTap: () {}
+          PopupMenuButton(
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem(
+                child: Text('All'),
+                value: 'all',
+              ),
+              PopupMenuItem(
+                child: Text('Done'),
+                value: 'done',
+              ),
+              PopupMenuItem(
+                child: Text('Undone'),
+                value: 'undone',
+              ),
+            ],
+            onSelected: (value) {
+              context
+                  .read<ListHandler>()
+                  .changeCurrentFiltering(value.toString());
+            },
           )
-
-          ] 
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => CreateTaskPage()));
-          },
-        shape: CircleBorder(),
-        child: Icon(Icons.add),
-        ),
-      body: ListView(
-        children: [
-          TaskTile(
-            taskDescription: 'Lämna Zakaria', 
-            taskDone: true, 
-            isChanged: (p0) {}, 
-            ),
-          TaskTile(
-            taskDescription: 'Plugga', 
-            taskDone: false, 
-            isChanged: (p0) {}, 
-            ),
-          TaskTile(
-            taskDescription: 'Hämta ut paket', 
-            taskDone: true, 
-            isChanged: (p0) {}, 
-            ),
-          TaskTile(
-            taskDescription: 'Hämta Zakaria', 
-            taskDone: true, 
-            isChanged: (p0) {}, 
-            ),
-          TaskTile(
-            taskDescription: 'Träna', 
-            taskDone: false, 
-            isChanged: (p0) {}, 
-            ),
         ],
       ),
-      
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      resizeToAvoidBottomInset: false,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CreateTaskPage(),
+            ),
+          );
+        },
+        shape: CircleBorder(),
+        child: Icon(Icons.add),
+      ),
+
+      // Take a list of TaskTile objects from the current state
+      body: Consumer<ListHandler>(
+        builder: (BuildContext context, listHandler, child) {
+          return ListView.builder(
+            itemCount: listHandler.currentTasks.length,
+            itemBuilder: (BuildContext context, index) {
+              return TaskTile(
+                taskDescription: listHandler.currentTasks[index].description,
+                taskDone: listHandler.currentTasks[index].done,
+                taskTileIndex: index,
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
