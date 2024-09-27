@@ -22,7 +22,6 @@ class TaskTile extends StatelessWidget {
         padding: EdgeInsets.all(20),
         child: Row(
           children: [
-            // checkbox to monitor task status
             AnimatedSwitcher(
               duration: Duration.zero,
               transitionBuilder: (child, animation) {
@@ -43,8 +42,6 @@ class TaskTile extends StatelessWidget {
                 },
               ),
             ),
-
-            // the task description
             Expanded(
               child: Text(
                 taskDescription,
@@ -54,15 +51,13 @@ class TaskTile extends StatelessWidget {
                         : TextDecoration.none),
               ),
             ),
-
-            // the close "X" to remove the task
             GestureDetector(
               child: Icon(Icons.close),
               onTap: () {
                 context.read<ListHandler>().removeTask(
                       context.read<ListHandler>().currentTasks[taskTileIndex],
                     );
-              }, // add remove function
+              },
             )
           ],
         ),

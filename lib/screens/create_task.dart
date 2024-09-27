@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:template/components/task.dart';
 import 'package:template/states/list_handler.dart';
 
 class CreateTaskPage extends StatelessWidget {
@@ -38,15 +37,13 @@ class CreateTaskPage extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  context.read<ListHandler>().addTask(
-                        Task(description: controller.text, done: false),
-                      );
+                  context.read<ListHandler>().addTask(controller.text);
                   controller.clear();
                   Navigator.of(context).pop();
                 },
                 child: Row(
                   children: [
-                    Icon(Icons.add),
+                    Icon(Icons.note_add),
                     Text('ADD'),
                   ],
                 ),

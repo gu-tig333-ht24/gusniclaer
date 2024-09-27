@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:template/screens/home.dart';
-import 'package:template/components/task.dart';
 import 'package:template/states/list_handler.dart';
+import 'package:template/components/api_handler.dart' as api;
 
 void main() {
+  api.fetchTasks();
   runApp(
     ChangeNotifierProvider(
       create: (context) => ListHandler(),
