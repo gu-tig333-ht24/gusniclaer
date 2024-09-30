@@ -51,8 +51,6 @@ class MyHomePage extends StatelessWidget {
         shape: CircleBorder(),
         child: Icon(Icons.add),
       ),
-
-      // Take a list of TaskTile objects from the current state
       body: Consumer<ListHandler>(
         builder: (BuildContext context, listHandler, child) {
           return ListView.builder(
