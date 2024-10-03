@@ -5,7 +5,6 @@ import 'package:template/states/list_handler.dart';
 import 'package:template/components/api_handler.dart' as api;
 
 void main() {
-  api.fetchTasks();
   runApp(
     ChangeNotifierProvider(
       create: (context) => ListHandler(),
@@ -19,8 +18,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    api.fetchTasks();
     return MaterialApp(
       title: 'To Do-App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
             seedColor: const Color.fromARGB(221, 0, 110, 255)),

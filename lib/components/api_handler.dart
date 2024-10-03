@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-const String apiKey = 'b536073e-3a00-47f3-9bd0-4fa3500b3df6';
+const String ENDPOINT = 'https://todoapp-api.apps.k8s.gu.se';
+const String APIKEY = 'b536073e-3a00-47f3-9bd0-4fa3500b3df6';
 
 Future<List> fetchTasks() async {
-  final url = Uri.parse('https://todoapp-api.apps.k8s.gu.se/todos?key=$apiKey');
+  final url = Uri.parse('$ENDPOINT/todos?key=$APIKEY');
 
   try {
     final response = await http.get(url);
@@ -21,7 +22,7 @@ Future<List> fetchTasks() async {
 }
 
 Future<void> addTask(String description) async {
-  final url = Uri.parse('https://todoapp-api.apps.k8s.gu.se/todos?key=$apiKey');
+  final url = Uri.parse('$ENDPOINT/todos?key=$APIKEY');
   final newTask = {
     "title": description,
     "done": false,
@@ -41,8 +42,7 @@ Future<void> addTask(String description) async {
 }
 
 Future<void> updateTask(String id, String description, bool done) async {
-  final url =
-      Uri.parse('https://todoapp-api.apps.k8s.gu.se/todos/$id?key=$apiKey');
+  final url = Uri.parse('$ENDPOINT/todos/$id?key=$APIKEY');
   final taskToBeUpdated = {
     "title": description,
     "done": done,
@@ -63,8 +63,7 @@ Future<void> updateTask(String id, String description, bool done) async {
 }
 
 Future<void> deleteTask(String id) async {
-  final url =
-      Uri.parse('https://todoapp-api.apps.k8s.gu.se/todos/$id?key=$apiKey');
+  final url = Uri.parse('$ENDPOINT/todos/$id?key=$APIKEY');
 
   try {
     final http.Response response = await http.delete(url);
