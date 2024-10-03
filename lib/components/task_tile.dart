@@ -62,9 +62,15 @@ class TaskTile extends StatelessWidget {
           ],
         ),
         decoration: BoxDecoration(
-          color: const Color.fromARGB(221, 255, 255, 255),
-          borderRadius: BorderRadius.circular(5),
-        ),
+            color: const Color.fromARGB(221, 255, 199, 199),
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: [
+              BoxShadow(
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  spreadRadius: 1,
+                  blurRadius: 3,
+                  offset: Offset.fromDirection(0.8, 3)),
+            ]),
       ),
     );
   }

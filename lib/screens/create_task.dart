@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:template/components/custom_appbar.dart';
 import 'package:template/states/list_handler.dart';
 
 class CreateTaskPage extends StatelessWidget {
@@ -10,19 +11,25 @@ class CreateTaskPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(137, 80, 78, 78),
-        title: Text('TODO APP'),
+      backgroundColor: const Color.fromARGB(255, 226, 144, 191),
+      appBar: CustomAppBar(
+        actions: [],
       ),
       body: Column(
         children: [
           Container(
             height: 90,
             decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 244, 250, 255),
-              borderRadius: BorderRadius.circular(5),
-            ),
+                color: const Color.fromARGB(255, 244, 250, 255),
+                borderRadius: BorderRadius.circular(5),
+                border: Border.all(color: Colors.black87, width: 0.2),
+                boxShadow: [
+                  BoxShadow(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      spreadRadius: 0.5,
+                      blurRadius: 2,
+                      offset: Offset.fromDirection(0.8, 3)),
+                ]),
             padding: EdgeInsets.all(20),
             margin: EdgeInsets.all(20),
             child: TextField(
