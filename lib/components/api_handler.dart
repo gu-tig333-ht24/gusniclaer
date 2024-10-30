@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 const String ENDPOINT = 'https://todoapp-api.apps.k8s.gu.se';
-const String APIKEY = 'b536073e-3a00-47f3-9bd0-4fa3500b3df6';
+const String APIKEY = '5cec3d0d-0b3b-4ae0-bb78-4d87c36e4dd4';
 
 Future<List> fetchTasks() async {
   final url = Uri.parse('$ENDPOINT/todos?key=$APIKEY');
