@@ -5,14 +5,13 @@ import 'package:template/states/list_handler.dart';
 class TaskTile extends StatelessWidget {
   final String taskDescription;
   final bool taskDone;
-  final int taskTileIndex;
+  final String taskID;
 
-  TaskTile({
-    super.key,
-    required this.taskDescription,
-    required this.taskDone,
-    required this.taskTileIndex,
-  });
+  TaskTile(
+      {super.key,
+      required this.taskDescription,
+      required this.taskDone,
+      required this.taskID});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +19,16 @@ class TaskTile extends StatelessWidget {
       padding: const EdgeInsets.only(top: 11, left: 8, right: 8),
       child: Container(
         padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+            color: const Color.fromARGB(221, 255, 199, 199),
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: [
+              BoxShadow(
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  spreadRadius: 1,
+                  blurRadius: 3,
+                  offset: Offset.fromDirection(0.8, 3)),
+            ]),
         child: Row(
           children: [
             AnimatedSwitcher(
@@ -37,7 +46,7 @@ class TaskTile extends StatelessWidget {
                 checkColor: Colors.black87,
                 onChanged: (_) {
                   context.read<ListHandler>().boxChecked(
-                        context.read<ListHandler>().currentTasks[taskTileIndex],
+                        taskID,
                       );
                 },
               ),
@@ -55,22 +64,12 @@ class TaskTile extends StatelessWidget {
               child: Icon(Icons.close),
               onTap: () {
                 context.read<ListHandler>().removeTask(
-                      context.read<ListHandler>().currentTasks[taskTileIndex],
+                      taskID,
                     );
               },
             )
           ],
         ),
-        decoration: BoxDecoration(
-            color: const Color.fromARGB(221, 255, 199, 199),
-            borderRadius: BorderRadius.circular(5),
-            boxShadow: [
-              BoxShadow(
-                  color: Color.fromARGB(255, 0, 0, 0),
-                  spreadRadius: 1,
-                  blurRadius: 3,
-                  offset: Offset.fromDirection(0.8, 3)),
-            ]),
       ),
     );
   }

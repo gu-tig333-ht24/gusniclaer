@@ -36,27 +36,26 @@ class ListHandler extends ChangeNotifier {
     }
   }
 
-  Future<void> boxChecked(Task existingTask) async {
-    final taskIndex = _tasks.indexWhere((task) => task.id == existingTask.id);
+  Future<void> boxChecked(taskID) async {
+    final taskIndex = _tasks.indexWhere((task) => task.id == taskID);
     if (taskIndex != -1) {
-      _tasks[taskIndex].isDone();
-      notifyListeners();
-
       try {
-        await api.updateTask(existingTask.id, _tasks[taskIndex].description,
-            _tasks[taskIndex].done);
+        _tasks[taskIndex].isDone();
+        await api.updateTask(
+            taskID, _tasks[taskIndex].description, _tasks[taskIndex].done);
+
+        notifyListeners();
       } catch (e) {
         print('Error updating task: $e');
       }
     }
   }
 
-  Future<void> removeTask(Task existingTask) async {
-    _tasks.removeWhere((task) => task.id == existingTask.id);
-    notifyListeners();
-
+  Future<void> removeTask(String taskID) async {
     try {
-      await api.deleteTask(existingTask.id);
+      await api.deleteTask(taskID);
+      _tasks.removeWhere((task) => task.id == taskID);
+      notifyListeners();
     } catch (e) {
       print('Error deleting task: $e');
     }

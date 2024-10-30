@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    api.fetchTasks();
     return MaterialApp(
       title: 'To Do-App',
       debugShowCheckedModeBanner: false,

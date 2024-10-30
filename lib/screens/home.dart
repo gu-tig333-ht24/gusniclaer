@@ -55,7 +55,7 @@ class MyHomePage extends StatelessWidget {
               return TaskTile(
                 taskDescription: listHandler.currentTasks[index].description,
                 taskDone: listHandler.currentTasks[index].done,
-                taskTileIndex: index,
+                taskID: listHandler.currentTasks[index].id,
               );
             },
           );
