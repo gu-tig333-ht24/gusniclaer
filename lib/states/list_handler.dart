@@ -40,8 +40,8 @@ class ListHandler extends ChangeNotifier {
     final taskIndex = _tasks.indexWhere((task) => task.id == taskID);
     if (taskIndex != -1) {
       try {
-        await api.updateTask(
-            taskID, _tasks[taskIndex].description, _tasks[taskIndex].done);
+        await api.updateTask(taskID, _tasks[taskIndex].description,
+            _tasks[taskIndex].done ? false : true);
         _tasks[taskIndex].isDone();
         notifyListeners();
       } catch (e) {
